@@ -20,6 +20,13 @@ export const GET_SITE_BY_SLUG_QUERY = gql`
         primary {
           hex
         }
+      },
+      hero {
+        title
+        description
+        image {
+          url
+        }
       }
     }
   }

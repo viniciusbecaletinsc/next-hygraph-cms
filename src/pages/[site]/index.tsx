@@ -1,6 +1,27 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { client, GET_SITES_SLUG, GET_SITE_BY_SLUG_QUERY } from '@/lib/hygraph'
 import { ISiteResponse, ISitesResponse } from '@/_types/models'
+import { HeroSection } from '@/components/Hero'
+import Link from 'next/link'
+import { Box } from '@chakra-ui/react'
+
+export default function Home({ site }: ISiteResponse) {
+  return (
+    <div>
+      <Box
+        display={['flex']}
+        gap={[4]}
+      >
+        <Link href="/grupo-polgo">Grupo Polgo</Link>
+        <Link href="/promo">Polgo Promo</Link>
+        <Link href="/segmentacao">Polgo Segmentação</Link>
+        <Link href="/qualquercoisa">404</Link>
+      </Box>
+
+      <HeroSection data={site.hero} />
+    </div>
+  )
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data: ISitesResponse = await client.request(GET_SITES_SLUG)
@@ -13,9 +34,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const site = params?.site as string;
-  const currentTime = new Date().toLocaleTimeString()
 
-  const data: ISiteResponse = await client.request(GET_SITE_BY_SLUG_QUERY, { slug: site })
+  const data: ISiteResponse = await client.request(GET_SITE_BY_SLUG_QUERY, { slug: site })  
 
   if (!data.site) {
     return {
@@ -26,23 +46,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       site: data.site,
-      currentTime
     },
     revalidate: 30
   }
-}
-
-export default function Home({ site, currentTime }: ISiteResponse) {
-  return (
-    <div>
-      <h1>{site.name}</h1>
-      <p>slug: {site.slug}</p>
-      <button
-        style={{
-          backgroundColor: site.theme.primary.hex
-        }}
-      >Botão estilizado</button>
-      <span>{currentTime}</span>
-    </div>
-  )
 }
