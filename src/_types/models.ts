@@ -1,14 +1,23 @@
-interface ITheme {
+export interface ITheme {
   primary: {
     hex: string
   }
 }
 
-interface ISite {
+export interface IHero {
+  title: string
+  description: string
+  image: {
+    url: string
+  }
+}
+
+export interface ISite {
   id: string
   name: string
   slug: string
   theme: ITheme
+  hero: IHero
 }
 
 export interface ISiteResponse {
