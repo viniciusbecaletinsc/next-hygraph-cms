@@ -3,11 +3,26 @@ import { client, GET_SITES_SLUG, GET_SITE_BY_SLUG_QUERY } from '@/lib/hygraph'
 import { ISiteResponse, ISitesResponse } from '@/_types/models'
 import { HeroSection } from '@/components/Hero'
 import Link from 'next/link'
-import { Box } from '@chakra-ui/react'
+import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react'
 
 export default function Home({ site }: ISiteResponse) {
+  const theme = extendTheme({
+    styles: {
+      global: {
+        body: {
+          textColor: 'white',
+          bg: 'black'
+        }
+      }
+    },
+    colors: {
+      primary: site.theme?.primary?.hex
+    }
+  })
+
   return (
     <div>
+    <ChakraProvider theme={theme}>
       <Box
         display={['flex']}
         gap={[4]}
@@ -18,7 +33,10 @@ export default function Home({ site }: ISiteResponse) {
         <Link href="/qualquercoisa">404</Link>
       </Box>
 
-      <HeroSection data={site.hero} />
+      {site.hero && (
+        <HeroSection data={site.hero} />
+      )}
+    </ChakraProvider>
     </div>
   )
 }

@@ -1,15 +1,15 @@
 import { IHero } from '@/_types/models'
+import { theme } from '@/theme';
+
 import {
   chakra,
   Container,
   Stack,
-  HStack,
   Text,
   useColorModeValue,
   Image,
   Skeleton,
   Box,
-  Link,
 } from '@chakra-ui/react';
 
 interface HeroProps {
@@ -18,10 +18,10 @@ interface HeroProps {
 
 export const HeroSection = ({ data }: HeroProps) => {
   return (
-    <Container maxW="6xl" px={{ base: 6, md: 3 }} py={24}>
+    <Container minH="100vh" maxW="6xl" px={{ base: 6, md: 3 }} py={24}>
       <Stack direction={{ base: 'column', md: 'row' }} justifyContent="center">
         <Stack direction="column" spacing={6} justifyContent="center" maxW="480px">
-          <chakra.h1 fontSize="5xl" lineHeight={1} fontWeight="bold" textAlign="left">
+          <chakra.h1 fontSize="5xl" textColor="primary" lineHeight={1} fontWeight="bold" textAlign="left">
             {data.title}
           </chakra.h1>
           <Text
