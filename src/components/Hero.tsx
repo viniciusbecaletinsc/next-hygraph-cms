@@ -1,5 +1,5 @@
 import { IHero } from '@/_types/models'
-import { theme } from '@/theme';
+import Image from 'next/image';
 
 import {
   chakra,
@@ -7,7 +7,6 @@ import {
   Stack,
   Text,
   useColorModeValue,
-  Image,
   Skeleton,
   Box,
 } from '@chakra-ui/react';
@@ -37,13 +36,9 @@ export const HeroSection = ({ data }: HeroProps) => {
         <Box ml={{ base: 0, md: 5 }} pos="relative">
           <DottedBox />
           <Image
-            w="100%"
-            h="100%"
-            minW={{ base: 'auto', md: '30rem' }}
-            objectFit="cover"
+            width={500}
+            height={500}
             src={data.image.url}
-            rounded="md"
-            fallback={<Skeleton />}
             alt=''
           />
         </Box>
